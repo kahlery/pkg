@@ -1,8 +1,11 @@
 package env
 
 import (
-	log "api/pkg/log/util"
+	// Standart
 	"os"
+
+	// Package specific
+	log "api/pkg/log/util"
 )
 
 func LogWorkingEnv() {
