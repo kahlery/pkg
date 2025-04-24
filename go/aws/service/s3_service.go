@@ -39,14 +39,14 @@ func NewS3Service() *S3Service {
 func InitS3Client() *s3.Client {
 	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
-		util.Fatalf("unable to load AWS-SDK config, %v", err)
+		util.LogSuccess("unable to load AWS-SDK config, "+err.Error(), "", "")
 
 	}
 
 	return s3.NewFromConfig(cfg)
 }
 
-// functions --------------------------------------------------------------------
+// Behaviours --------------------------------------------------------------------
 
 func (s *S3Service) GetObject(path *string, fileName *string, processID string) ([]byte, map[string]string, error) {
 	// Define the full key

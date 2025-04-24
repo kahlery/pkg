@@ -4,11 +4,12 @@ import (
 	"os"
 	"strings"
 
-	log "api/pkg/log/util"
+	// Package specific
+	"github.com/kahleryasla/pkg/go/log/util"
 )
 
 func logNotSupportedImageExtension() {
-	log.LogError("image extension is not supported"+
+	util.LogError("image extension is not supported"+
 		"\nsupported image extensions: .jpg, .jpeg, .png, .webp", "logNotSupportedImageExtension()", "")
 }
 
