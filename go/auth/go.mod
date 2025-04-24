@@ -1,4 +1,4 @@
-module github.com/kahleryasla/go/auth
+module github.com/kahleryasla/pkg/go/auth
 
 go 1.23.0
 

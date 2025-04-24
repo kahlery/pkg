@@ -2,7 +2,7 @@ package middleware
 
 import (
 	// Package specific
-	"github.com/kahleryasla/go/auth/token"
+	"github.com/kahleryasla/go/pkg/auth/token"
 
 	// Third
 	"github.com/gofiber/fiber/v2"
