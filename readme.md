@@ -21,10 +21,10 @@ planning to add my Unity Engine packages/plugins here as well soon.
 
 To install a specific package from the TypeScript modules, you can use `npm` with the specific module you want to install. Here's how:
 
-1. Ensure that you have `Node.js` and `npm` installed on your machine.
+1. Ensure that you have `Node.js`, `npm` & especially `tiged` (tiged is an npm package allows you to install specific subdirectory in a whole project) installed on your machine.
 2. Use the following command to install a specific module. For example, to install the `admin` module:
     ```bash
-    npm install @kahleryasla/pkg-react-admin
+    tiged github.com/kahleryasla/pkg/ts/react/modules/core
     ```
 
 To use a Go module, you can install it using go get. For example:

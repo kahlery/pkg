@@ -11,6 +11,11 @@
     "type": "commonjs",
     "description": "",
     "dependencies": {
+        "@types/dotenv": "^6.1.1",
+        "@types/react": "^19.1.2",
+        "axios": "^1.9.0",
+        "dotenv": "^16.5.0",
+        "react": "^19.1.0",
         "typescript": "^5.8.3"
     }
 }
