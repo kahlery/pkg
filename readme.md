@@ -1,6 +1,6 @@
 # github.com/kahleryasla/pkg
 
-`pkg` bag of packages for:
+`pkg` monorepo of multiple packages/modules/libraries for multiple languages:
 
 -   golang
 -   ts/react
