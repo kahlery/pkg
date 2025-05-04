@@ -1,4 +1,4 @@
-package httpnet
+package nethttp
 
 import (
 	"encoding/json"
