@@ -1,9 +1,0 @@
-[submodule "test/external/pkg"]
-	path = test/external/pkg
-	url = https://github.com/kahleryasla/pkg.git
-[submodule "test/pkg/ts/auth"]
-	path = test/pkg/ts/auth
-	url = https://github.com/kahleryasla/pkg.git
-[submodule "test/auth"]
-	path = test/auth
-	url = https://github.com/kahleryasla/pkg.git

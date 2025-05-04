@@ -1,9 +1,5 @@
 {
     "compilerOptions": {
-        "baseUrl": "./",
-        "paths": {
-            "@kahleryasla/auth": ["external/pkg/ts/auth"]
-        },
         "jsx": "react",
         /* Visit https://aka.ms/tsconfig to read more about this file */
 
