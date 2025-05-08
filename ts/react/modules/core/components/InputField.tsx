@@ -1,13 +1,13 @@
 import React from "react"
 
-interface CInputFieldProps {
+interface InputFieldProps {
     label: string
     placeholder: string
     value: string
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const CInputField: React.FC<CInputFieldProps> = ({
+const InputField: React.FC<InputFieldProps> = ({
     label,
     placeholder,
     value,
@@ -37,4 +37,4 @@ const CInputField: React.FC<CInputFieldProps> = ({
     )
 }
 
-export default CInputField
+export default InputField

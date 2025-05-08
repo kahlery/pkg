@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react"
 
 // Types
 import Alert from "../types/alert"
-
-// Components
-import CAlert from "../components/CAlert"
+import AlertComponent from "./Alert"
 
 interface AlertViewProps {}
 
@@ -43,7 +41,7 @@ const AlertView: React.FC<AlertViewProps> = () => {
     return (
         <div className="flex flex-col fixed top-10 left-0 right-0 z-50 gap-8">
             {alerts.map((alert) => (
-                <CAlert
+                <AlertComponent
                     key={alert.id}
                     message={`${alert.message} (${alert.countdown}s remaining)`}
                     onClose={() => removeAlert(alert.id)}

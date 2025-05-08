@@ -5,12 +5,12 @@ export interface Tab {
     content: React.ReactNode // Content of the tab
 }
 
-interface CTabsProps {
+interface TabsProps {
     className?: string
     tabs: Tab[] // Array of Tab objects
 }
 
-const CTabs: React.FC<CTabsProps> = ({ tabs, className = "" }) => {
+const Tabs: React.FC<TabsProps> = ({ tabs, className = "" }) => {
     const [activeIndex, setActiveIndex] = useState(0) // Track the active tab
 
     return (
@@ -41,4 +41,4 @@ const CTabs: React.FC<CTabsProps> = ({ tabs, className = "" }) => {
     )
 }
 
-export default CTabs
+export default Tabs

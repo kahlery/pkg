@@ -1,11 +1,11 @@
 import React from "react"
 
-interface CButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode
     secondary?: boolean
 }
 
-const CButton: React.FC<CButtonProps> = ({
+const Button: React.FC<ButtonProps> = ({
     children,
     className,
     secondary,
@@ -30,4 +30,4 @@ const CButton: React.FC<CButtonProps> = ({
     )
 }
 
-export default CButton
+export default Button

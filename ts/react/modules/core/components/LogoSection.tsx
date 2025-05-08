@@ -1,17 +1,17 @@
 import React from "react"
 
-interface CLogoSectionProps {
+interface LogoSectionProps {
     lightMode?: boolean
     className?: string
     isHorizontal?: boolean
     logoSize?: number
 }
 
-const CLogoSection: React.FC<CLogoSectionProps> = ({
+const LogoSection: React.FC<LogoSectionProps> = ({
     lightMode = false,
     className = "",
     isHorizontal = false,
-}: CLogoSectionProps) => {
+}: LogoSectionProps) => {
     return (
         <div
             className={`flex items-center
@@ -27,4 +27,4 @@ const CLogoSection: React.FC<CLogoSectionProps> = ({
     )
 }
 
-export default CLogoSection
+export default LogoSection
