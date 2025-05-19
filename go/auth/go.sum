@@ -6,10 +6,10 @@ github.com/golang-jwt/jwt/v4 v4.5.2 h1:YtQM7lnr8iZ+j5q71MGKkNw9Mn7AjHM68uc9g5fXe
 github.com/golang-jwt/jwt/v4 v4.5.2/go.mod h1:m21LjoU+eqJr34lmDMbreY2eSTRJ1cv77w39/MY0Ch0=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
 github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
-github.com/kahleryasla/pkg/go/json v0.0.0-20250504180721-465b8ef0d002 h1:KWCuD7WXv7nQicUChEeEwbGFSA/be0CFDclRfrTuO9w=
-github.com/kahleryasla/pkg/go/json v0.0.0-20250504180721-465b8ef0d002/go.mod h1:OOXGacB2pDXIbpuwIlrNrbKw0JqeklXygewuvfLhcqQ=
-github.com/kahleryasla/pkg/go/json v0.0.0-20250504181033-c3dc705cc909 h1:U50j17PvX5DADZjFFQH4T8Cx7nmMyfF2uAl8S/T3lPc=
-github.com/kahleryasla/pkg/go/json v0.0.0-20250504181033-c3dc705cc909/go.mod h1:OOXGacB2pDXIbpuwIlrNrbKw0JqeklXygewuvfLhcqQ=
+github.com/kahlery/pkg/go/json v0.0.0-20250504180721-465b8ef0d002 h1:KWCuD7WXv7nQicUChEeEwbGFSA/be0CFDclRfrTuO9w=
+github.com/kahlery/pkg/go/json v0.0.0-20250504180721-465b8ef0d002/go.mod h1:OOXGacB2pDXIbpuwIlrNrbKw0JqeklXygewuvfLhcqQ=
+github.com/kahlery/pkg/go/json v0.0.0-20250504181033-c3dc705cc909 h1:U50j17PvX5DADZjFFQH4T8Cx7nmMyfF2uAl8S/T3lPc=
+github.com/kahlery/pkg/go/json v0.0.0-20250504181033-c3dc705cc909/go.mod h1:OOXGacB2pDXIbpuwIlrNrbKw0JqeklXygewuvfLhcqQ=
 github.com/klauspost/compress v1.17.9 h1:6KIumPrER1LHsvBVuDa0r5xaG0Es51mhhB9BQB2qeMA=
 github.com/klauspost/compress v1.17.9/go.mod h1:Di0epgTjJY877eYKx5yC51cX2A2Vl2ibi7bDH9ttBbw=
 github.com/mattn/go-colorable v0.1.13 h1:fFA4WZxdEF4tXPZVKMLwD8oUnCTTo08duU7wxecdEvA=

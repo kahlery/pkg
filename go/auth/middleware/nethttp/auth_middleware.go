@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/kahleryasla/pkg/go/auth/token"
-	"github.com/kahleryasla/pkg/go/json/util/nethttp"
+	"github.com/kahlery/pkg/go/auth/token"
+	"github.com/kahlery/pkg/go/json/util/nethttp"
 )
 
 func AuthMiddleware(next http.Handler) http.Handler {

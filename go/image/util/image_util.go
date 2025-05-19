@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	// Package specific
-	"github.com/kahleryasla/pkg/go/log/util"
+	"github.com/kahlery/pkg/go/log/util"
 )
 
 func logNotSupportedImageExtension() {

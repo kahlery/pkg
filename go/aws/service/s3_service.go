@@ -9,7 +9,7 @@ import (
 	"os"
 
 	// Package specific
-	"github.com/kahleryasla/pkg/go/log/util"
+	"github.com/kahlery/pkg/go/log/util"
 
 	// Third
 	"github.com/aws/aws-sdk-go-v2/config"

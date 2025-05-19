@@ -1,4 +1,4 @@
-# github.com/kahleryasla/pkg
+# github.com/kahlery/pkg
 
 `pkg` monorepo of multiple packages/modules/libraries for multiple languages:
 
@@ -24,7 +24,7 @@ To install a specific package from the TypeScript modules, you can use `npm` wit
 1. Ensure that you have `Node.js`, `npm` & especially `tiged` (tiged is an npm package allows you to install specific subdirectory in a whole project) installed on your machine.
 2. Use the following command to install a specific module. For example, to install the `admin` module:
     ```bash
-    tiged github.com/kahleryasla/pkg/ts/react/modules/core
+    tiged github.com/kahlery/pkg/ts/react/modules/core
     ```
 
 To use a Go module, you can install it using go get. For example:
@@ -34,7 +34,7 @@ To use a Go module, you can install it using go get. For example:
 Run the go get command with the package you want to install. For example, to install the auth package:
 
 ```bash
-go get github.com/kahleryasla/pkg/go/auth
+go get github.com/kahlery/pkg/go/auth
 ```
 
 ### Structure

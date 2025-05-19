@@ -1,11 +1,11 @@
-module github.com/kahleryasla/pkg/go/aws
+module github.com/kahlery/pkg/go/aws
 
 go 1.22.5
 
 require (
 	github.com/aws/aws-sdk-go-v2/config v1.29.14
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.79.2
-	github.com/kahleryasla/pkg/go/log v0.0.0-20250422141011-849717b9e6f9
+	github.com/kahlery/pkg/go/log v0.0.0-20250422141011-849717b9e6f9
 )
 
 require (

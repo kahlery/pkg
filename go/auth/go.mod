@@ -1,4 +1,4 @@
-module github.com/kahleryasla/pkg/go/auth
+module github.com/kahlery/pkg/go/auth
 
 go 1.23.0
 
@@ -13,7 +13,7 @@ require (
 require (
 	github.com/andybalholm/brotli v1.1.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
-	github.com/kahleryasla/pkg/go/json v0.0.0-20250504181033-c3dc705cc909 // indirect
+	github.com/kahlery/pkg/go/json v0.0.0-20250504181033-c3dc705cc909 // indirect
 	github.com/klauspost/compress v1.17.9 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
