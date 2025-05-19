@@ -1,4 +1,4 @@
-module github.com/kahlery/pkg/go/env
+module github.com/kahlery/pkg/go/image
 
 go 1.22.5
 
