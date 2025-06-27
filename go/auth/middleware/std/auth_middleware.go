@@ -1,4 +1,4 @@
-package nethttp
+package std
 
 import (
 	// Standart http package
@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/kahlery/pkg/go/auth/token"
-	"github.com/kahlery/pkg/go/json/util/nethttp"
+	"github.com/kahlery/pkg/go/json/util/std"
 )
 
 func AuthMiddleware(next http.Handler) http.Handler {
@@ -15,14 +15,14 @@ func AuthMiddleware(next http.Handler) http.Handler {
 		// 1. Check if the header is set.
 		authHeader := r.Header.Get("Authorization")
 		if authHeader == "" {
-			nethttp.WriteJSON(w, http.StatusUnauthorized, map[string]string{"error": "Authorization header required"})
+			std.WriteJSON(w, http.StatusUnauthorized, map[string]string{"error": "Authorization header required"})
 			return
 		}
 
 		// 2. Check if the header starts with "Bearer ".
 		// VITAL: (there is a space character after the Bearer)
 		if strings.HasPrefix(authHeader, "Bearer ") {
-			nethttp.WriteJSON(w, http.StatusUnauthorized, map[string]string{"error": "Invalid authorization type"})
+			std.WriteJSON(w, http.StatusUnauthorized, map[string]string{"error": "Invalid authorization type"})
 			return
 		}
 		tokenStr := strings.TrimPrefix(authHeader, "Bearer ")
@@ -30,7 +30,7 @@ func AuthMiddleware(next http.Handler) http.Handler {
 		// 3. Check if the token is verified.
 		_, err := token.VerifyToken(tokenStr)
 		if err != nil {
-			nethttp.WriteJSON(w, http.StatusUnauthorized, map[string]string{
+			std.WriteJSON(w, http.StatusUnauthorized, map[string]string{
 				"error":   "Invalid token",
 				"details": err.Error(),
 				"token":   tokenStr,
