@@ -10,7 +10,15 @@ import (
 
 var logger *slog.Logger
 
-// Initialize sets up the slog logger with a JSON handler for structured logging
+// CustomTime wraps time.Time and implements slog.TimeMarshaler
+type CustomTime time.Time
+
+// MarshalTime formats time as "2006-01-02 15:04:05"
+func (ct CustomTime) MarshalTime() string {
+	t := time.Time(ct)
+	return t.Format("2006-01-02 15:04:05")
+}
+
 func Initialize() {
 	handler := slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
 		Level: slog.LevelDebug,
@@ -18,7 +26,6 @@ func Initialize() {
 	logger = slog.New(handler)
 }
 
-// getCallerInfo returns the file and line number of the caller
 func getCallerInfo() (file string, line int) {
 	_, file, line, ok := runtime.Caller(2)
 	if !ok {
@@ -27,19 +34,16 @@ func getCallerInfo() (file string, line int) {
 	return file, line
 }
 
-// commonAttrs returns common logging attributes
 func commonAttrs(location, processID string) []slog.Attr {
 	fields := []slog.Attr{
-		slog.String("timestamp", time.Now().Format("2006-01-02 15:04:05")),
+		slog.String("location", location),
+		slog.String("process_id", processID),
+		slog.String("time", "w"), // Use custom formatted time
 	}
-	if location != "" {
-		fields = append(fields, slog.String("location", location))
-		fields = append(fields, slog.String("process_id", processID))
-	}
+
 	return fields
 }
 
-// attrsToArgs converts []slog.Attr to []any for variadic logging methods
 func attrsToArgs(attrs []slog.Attr) []any {
 	args := make([]any, len(attrs))
 	for i, attr := range attrs {
@@ -48,7 +52,6 @@ func attrsToArgs(attrs []slog.Attr) []any {
 	return args
 }
 
-// LogError logs an error message with caller info
 func LogError(ctx context.Context, msg, location, processID string) {
 	if logger == nil {
 		Initialize()
@@ -60,7 +63,6 @@ func LogError(ctx context.Context, msg, location, processID string) {
 	).ErrorContext(ctx, msg, attrsToArgs(commonAttrs(location, processID))...)
 }
 
-// LogSuccess logs a success/info-level message
 func LogSuccess(ctx context.Context, msg, location, processID string) {
 	if logger == nil {
 		Initialize()
@@ -68,7 +70,6 @@ func LogSuccess(ctx context.Context, msg, location, processID string) {
 	logger.InfoContext(ctx, msg, attrsToArgs(commonAttrs(location, processID))...)
 }
 
-// LogWarn logs a warning message
 func LogWarn(ctx context.Context, msg, location, processID string) {
 	if logger == nil {
 		Initialize()
@@ -76,7 +77,6 @@ func LogWarn(ctx context.Context, msg, location, processID string) {
 	logger.WarnContext(ctx, msg, attrsToArgs(commonAttrs(location, processID))...)
 }
 
-// LogTask logs a debug-level message
 func LogTask(ctx context.Context, msg, location, processID string) {
 	if logger == nil {
 		Initialize()
@@ -84,7 +84,6 @@ func LogTask(ctx context.Context, msg, location, processID string) {
 	logger.DebugContext(ctx, msg, attrsToArgs(commonAttrs(location, processID))...)
 }
 
-// LogInfo logs an info-level message
 func LogInfo(ctx context.Context, msg, location, processID string) {
 	if logger == nil {
 		Initialize()
