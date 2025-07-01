@@ -17,7 +17,7 @@ const (
 	bgGreen  = "\033[42m" // INFO/SUCCESS
 	bgBlue   = "\033[44m" // DEBUG/TASK
 	bgReset  = "\033[0m"  // Reset
-	fgBlack  = "\033[30m" // Black text for better contrast
+	fgBlack  = "\033[37m" // Black text for better contrast
 )
 
 // ColoredHandler is a custom slog.Handler that adds background colors to levels
@@ -64,7 +64,7 @@ func (h *ColoredHandler) Handle(ctx context.Context, r slog.Record) error {
 	}
 
 	// Create the colored level string
-	coloredLevel := fmt.Sprintf("%s%s%-5s%s", bgColor, fgBlack, r.Level.String(), bgReset)
+	coloredLevel := fmt.Sprintf("%s%s%-5s%s", bgColor, fgWhite, r.Level.String(), bgReset)
 
 	// Start building the log line
 	var logParts []string
