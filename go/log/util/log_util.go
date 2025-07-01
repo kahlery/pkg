@@ -17,7 +17,7 @@ const (
 	bgGreen  = "\033[42m" // INFO/SUCCESS
 	bgBlue   = "\033[44m" // DEBUG/TASK
 	bgReset  = "\033[0m"  // Reset
-	fgBlack  = "\033[37m" // Black text for better contrast
+	fgWhite  = "\033[37m" // Black text for better contrast
 )
 
 // ColoredHandler is a custom slog.Handler that adds background colors to levels
