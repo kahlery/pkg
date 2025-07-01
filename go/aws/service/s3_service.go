@@ -9,7 +9,6 @@ import (
 	"os"
 
 	// Package specific
-	"github.com/kahlery/pkg/go/log/util"
 
 	// Third
 	"github.com/aws/aws-sdk-go-v2/config"
@@ -39,8 +38,6 @@ func NewS3Service() *S3Service {
 func InitS3Client() *s3.Client {
 	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
-		util.LogSuccess("unable to load AWS-SDK config, "+err.Error(), "", "")
-
 	}
 
 	return s3.NewFromConfig(cfg)
@@ -97,7 +94,6 @@ func (s *S3Service) PostObject(path *string, fileName *string, data []byte, obje
 	}
 
 	if s.config.isLoggingEnabled {
-		util.LogTask("Posting an object:"+fmt.Sprintf("%+v", input.Metadata), "S3Service.PostObject()", processID)
 	}
 
 	// Call S3 PutObject
@@ -107,7 +103,6 @@ func (s *S3Service) PostObject(path *string, fileName *string, data []byte, obje
 	}
 
 	if s.config.isLoggingEnabled {
-		util.LogSuccess("Object posted:"+fmt.Sprint(input.Metadata), "S3Service.PostObject()", processID)
 	}
 
 	return nil
@@ -125,17 +120,14 @@ func (s *S3Service) DeleteObject(path string, fileName string, processID string)
 		Key:    &key,
 	}
 
-	util.LogTask(fmt.Sprint("deleting the object with the key:", key), "S3Service.DeleteObject()", processID)
-
 	// Call S3 DeleteObject
-	res, err := s.s3Client.DeleteObject(context.TODO(), input)
+	_, err := s.s3Client.DeleteObject(context.TODO(), input)
 	if err != nil {
 		return fmt.Errorf("failed to delete file from S3: %w", err)
 	}
 
 	// Logging to the console
 	if s.config.isLoggingEnabled {
-		util.LogSuccess(fmt.Sprintf("%v", res.ResultMetadata), "S3Service.DeleteObject()", processID)
 	}
 
 	return nil
@@ -146,8 +138,6 @@ func (s *S3Service) DeleteObject(path string, fileName string, processID string)
 func (s *S3Service) GetObjectHead(path string, fileName string, processID string) (*s3.HeadObjectOutput, error) {
 	// Define the full key (path + fileName)
 	key := path + fileName
-
-	util.LogTask("getting metadata for file from S3 with: "+"| filename: "+fileName+"| path: "+path+"| key: "+key, "S3Service.GetObjectHead()", processID)
 
 	// Set up the HeadObject input
 	input := &s3.HeadObjectInput{
@@ -160,8 +150,6 @@ func (s *S3Service) GetObjectHead(path string, fileName string, processID string
 	if err != nil {
 		return nil, fmt.Errorf("failed to get metadata for file from S3: %w", err)
 	}
-
-	util.LogSuccess(fmt.Sprintf("metadata succesfully fetched: %v", res.Metadata), "S3Service.GetObjectHead()", processID)
 
 	// Return the metadata result
 	return res, nil
