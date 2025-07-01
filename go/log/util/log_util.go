@@ -2,12 +2,12 @@ package util
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"io"
 	"log/slog"
 	"os"
 	"runtime"
+	"strings"
 )
 
 // ANSI color codes for background colors
@@ -66,26 +66,42 @@ func (h *ColoredHandler) Handle(ctx context.Context, r slog.Record) error {
 	// Create the colored level string
 	coloredLevel := fmt.Sprintf("%s%s %-5s %s", bgColor, fgBlack, r.Level.String(), bgReset)
 
-	// Build the log entry with custom time format
-	logData := map[string]interface{}{
-		"time":    r.Time.Format("2006-01-02 15:04:05"),
-		"level":   coloredLevel,
-		"message": r.Message,
-	}
+	// Start building the log line
+	var logParts []string
 
-	// Add all attributes
+	// Add time
+	logParts = append(logParts, fmt.Sprintf(`"time":"%s"`, r.Time.Format("2006-01-02 15:04:05")))
+
+	// Add colored level (not JSON encoded to preserve colors)
+	logParts = append(logParts, fmt.Sprintf(`"level":%s`, coloredLevel))
+
+	// Add message
+	logParts = append(logParts, fmt.Sprintf(`"message":"%s"`, r.Message))
+
+	// Collect all attributes
+	var attrs []string
 	r.Attrs(func(a slog.Attr) bool {
-		logData[a.Key] = a.Value.Any()
+		switch v := a.Value.Any().(type) {
+		case string:
+			attrs = append(attrs, fmt.Sprintf(`"%s":"%s"`, a.Key, v))
+		case int, int64, int32:
+			attrs = append(attrs, fmt.Sprintf(`"%s":%v`, a.Key, v))
+		case float64, float32:
+			attrs = append(attrs, fmt.Sprintf(`"%s":%v`, a.Key, v))
+		case bool:
+			attrs = append(attrs, fmt.Sprintf(`"%s":%v`, a.Key, v))
+		default:
+			// For other types, convert to string
+			attrs = append(attrs, fmt.Sprintf(`"%s":"%v"`, a.Key, v))
+		}
 		return true
 	})
 
-	// Convert to JSON and write
-	jsonBytes, err := json.Marshal(logData)
-	if err != nil {
-		return err
-	}
+	// Combine all parts
+	allParts := append(logParts, attrs...)
+	logLine := fmt.Sprintf("{%s}", strings.Join(allParts, ","))
 
-	_, err = fmt.Fprintln(h.writer, string(jsonBytes))
+	_, err := fmt.Fprintln(h.writer, logLine)
 	return err
 }
 
