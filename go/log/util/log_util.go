@@ -64,13 +64,13 @@ func (h *ColoredHandler) Handle(ctx context.Context, r slog.Record) error {
 	}
 
 	// Create the colored level string
-	coloredLevel := fmt.Sprintf("%s%s %-5s %s", bgColor, fgBlack, r.Level.String(), bgReset)
+	coloredLevel := fmt.Sprintf("%s%s%-5s%s", bgColor, fgBlack, r.Level.String(), bgReset)
 
 	// Start building the log line
 	var logParts []string
 
 	// Add time
-	logParts = append(logParts, fmt.Sprintf(`"time":"%s"`, r.Time.Format("2006-01-02 15:04:05")))
+	logParts = append(logParts, fmt.Sprintf(`"time":"%s"`, r.Time.Format("2006-01-02T15:04:05")))
 
 	// Add colored level (not JSON encoded to preserve colors)
 	logParts = append(logParts, fmt.Sprintf(`"level":%s`, coloredLevel))
