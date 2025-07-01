@@ -1,147 +1,93 @@
 package util
 
 import (
-	// Standart
+	"context"
+	"log/slog"
+	"os"
 	"runtime"
 	"time"
-
-	// uber/zap dependency
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
 )
 
-// Logger is a wrapper around zap logger
-var Logger *zap.Logger
+var logger *slog.Logger
 
-// Initialize sets up the zap logger with development configuration
+// Initialize sets up the slog logger with a JSON handler for structured logging
 func Initialize() {
-	config := zap.NewDevelopmentConfig()
-	config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
-	config.EncoderConfig.TimeKey = "timestamp"
-	config.EncoderConfig.EncodeTime = zapcore.TimeEncoderOfLayout("2006-01-02 15:04:05")
-	logger, _ := config.Build()
-	Logger = logger
+	handler := slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
+		Level: slog.LevelDebug,
+	})
+	logger = slog.New(handler)
 }
 
-// LogError logs an error message with a timestamp, file, and line number
-func LogError(str string, location string, processID string) {
-	// Get file, line number of where LogError was called
-	_, file, line, ok := runtime.Caller(1)
+// getCallerInfo returns the file and line number of the caller
+func getCallerInfo() (file string, line int) {
+	_, file, line, ok := runtime.Caller(2)
 	if !ok {
-		file = "???"
-		line = 0
+		return "???", 0
 	}
-
-	// Create a new logger if it hasn't been initialized
-	if Logger == nil {
-		Initialize()
-	}
-
-	// Add contextual fields
-	fields := []zapcore.Field{
-		zap.String("file", file),
-		zap.Int("line", line),
-		zap.String("timestamp", time.Now().Format("2006-01-02 15:04:05")),
-	}
-
-	// Add location and processID if provided
-	if location != "" {
-		fields = append(fields, zap.String("location", location))
-		fields = append(fields, zap.String("processID", processID))
-	}
-
-	// Log the error with context
-	Logger.Error(str, fields...)
+	return file, line
 }
 
-// LogSuccess logs a success message with a timestamp
-func LogSuccess(str string, location string, processID string) {
-	// Create a new logger if it hasn't been initialized
-	if Logger == nil {
-		Initialize()
+// commonAttrs returns common logging attributes
+func commonAttrs(location, processID string) []slog.Attr {
+	fields := []slog.Attr{
+		slog.String("timestamp", time.Now().Format("2006-01-02 15:04:05")),
 	}
-
-	// Add contextual fields
-	fields := []zapcore.Field{
-		zap.String("timestamp", time.Now().Format("2006-01-02 15:04:05")),
-	}
-
-	// Add location and processID if provided
 	if location != "" {
-		fields = append(fields, zap.String("location", location))
-		fields = append(fields, zap.String("processID", processID))
-
+		fields = append(fields, slog.String("location", location))
+		fields = append(fields, slog.String("process_id", processID))
 	}
-
-	// Log the success message with context
-	Logger.Info(str, fields...)
+	return fields
 }
 
-// LogWarn logs a warning message with a timestamp
-func LogWarn(body string, location string, processID string) {
-	// Create a new logger if it hasn't been initialized
-	if Logger == nil {
-		Initialize()
+// attrsToArgs converts []slog.Attr to []any for variadic logging methods
+func attrsToArgs(attrs []slog.Attr) []any {
+	args := make([]any, len(attrs))
+	for i, attr := range attrs {
+		args[i] = attr
 	}
-
-	// Add contextual fields
-	fields := []zapcore.Field{
-		zap.String("timestamp", time.Now().Format("2006-01-02 15:04:05")),
-	}
-
-	// Add location and processID if provided
-	if location != "" {
-		fields = append(fields, zap.String("location", location))
-		fields = append(fields, zap.String("processID", processID))
-
-	}
-
-	// Log the warning message with context
-	Logger.Warn(body, fields...)
+	return args
 }
 
-// LogTask logs a task message with a timestamp
-func LogTask(str string, location string, processID string) {
-	// Create a new logger if it hasn't been initialized
-	if Logger == nil {
+// LogError logs an error message with caller info
+func LogError(ctx context.Context, msg, location, processID string) {
+	if logger == nil {
 		Initialize()
 	}
-
-	// Add contextual fields
-	fields := []zapcore.Field{
-		zap.String("timestamp", time.Now().Format("2006-01-02 15:04:05")),
-	}
-
-	// Add location and processID if provided
-	if location != "" {
-		fields = append(fields, zap.String("location", location))
-		fields = append(fields, zap.String("processID", processID))
-
-	}
-
-	// Log the task message with context (using Debug level)
-	Logger.Debug(str, fields...)
+	file, line := getCallerInfo()
+	logger.With(
+		slog.String("file", file),
+		slog.Int("line", line),
+	).ErrorContext(ctx, msg, attrsToArgs(commonAttrs(location, processID))...)
 }
 
-// LogInfo logs an informational message with a timestamp
-func LogInfo(str string, location string, processID string) {
-	// Create a new logger if it hasn't been initialized
-	if Logger == nil {
+// LogSuccess logs a success/info-level message
+func LogSuccess(ctx context.Context, msg, location, processID string) {
+	if logger == nil {
 		Initialize()
 	}
+	logger.InfoContext(ctx, msg, attrsToArgs(commonAttrs(location, processID))...)
+}
 
-	// Add contextual fields
-	fields := []zapcore.Field{
-		zap.String("timestamp", time.Now().Format("2006-01-02 15:04:05")),
+// LogWarn logs a warning message
+func LogWarn(ctx context.Context, msg, location, processID string) {
+	if logger == nil {
+		Initialize()
 	}
+	logger.WarnContext(ctx, msg, attrsToArgs(commonAttrs(location, processID))...)
+}
 
-	// Add location and processID if provided
-	if location != "" {
-		fields = append(fields, zap.String("location", location))
-		fields = append(fields, zap.String("processID", processID))
-
+// LogTask logs a debug-level message
+func LogTask(ctx context.Context, msg, location, processID string) {
+	if logger == nil {
+		Initialize()
 	}
+	logger.DebugContext(ctx, msg, attrsToArgs(commonAttrs(location, processID))...)
+}
 
-	// Log the info message with context
-	Logger.Info(str, fields...)
+// LogInfo logs an info-level message
+func LogInfo(ctx context.Context, msg, location, processID string) {
+	if logger == nil {
+		Initialize()
+	}
+	logger.InfoContext(ctx, msg, attrsToArgs(commonAttrs(location, processID))...)
 }
