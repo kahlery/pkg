@@ -7,10 +7,8 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"time"
 
-	// Package specific
-
-	// Third
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
@@ -38,6 +36,7 @@ func NewS3Service() *S3Service {
 func InitS3Client() *s3.Client {
 	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
+		panic(fmt.Sprintf("failed to load AWS config: %v", err))
 	}
 
 	return s3.NewFromConfig(cfg)
@@ -76,6 +75,36 @@ func (s *S3Service) GetObject(path *string, fileName *string, processID string) 
 
 // --------------------------------------------------------------------
 
+func (s *S3Service) GetSignedURL(path *string, fileName *string, expireSeconds int64) (string, error) {
+	// Define the full key
+	key := *path + *fileName
+
+	// Create a pre-sign client
+	presignClient := s3.NewPresignClient(s.s3Client)
+
+	// Set up the GetObject input for pre-signing
+	input := &s3.GetObjectInput{
+		Bucket: &s.bucket,
+		Key:    &key,
+	}
+
+	// Generate the pre-signed URL with expiration
+	presignedReq, err := presignClient.PresignGetObject(context.TODO(), input, func(opts *s3.PresignOptions) {
+		opts.Expires = time.Duration(expireSeconds) * time.Second
+	})
+	if err != nil {
+		return "", fmt.Errorf("failed to generate pre-signed URL: %w", err)
+	}
+
+	if s.config.isLoggingEnabled {
+		// util.LogTask("generated pre-signed URL for: "+key, "S3Service.GetSignedURL()", processID)
+	}
+
+	return presignedReq.URL, nil
+}
+
+// --------------------------------------------------------------------
+
 func (s *S3Service) PostObject(path *string, fileName *string, data []byte, objectTitle string, processID string) error {
 	// Define the full key
 	key := *path + *fileName
@@ -94,6 +123,7 @@ func (s *S3Service) PostObject(path *string, fileName *string, data []byte, obje
 	}
 
 	if s.config.isLoggingEnabled {
+		// util.LogTask("uploading to S3: "+key, "S3Service.PostObject()", processID)
 	}
 
 	// Call S3 PutObject
@@ -103,6 +133,7 @@ func (s *S3Service) PostObject(path *string, fileName *string, data []byte, obje
 	}
 
 	if s.config.isLoggingEnabled {
+		// util.LogTask("successfully uploaded to S3: "+key, "S3Service.PostObject()", processID)
 	}
 
 	return nil
@@ -128,6 +159,7 @@ func (s *S3Service) DeleteObject(path string, fileName string, processID string)
 
 	// Logging to the console
 	if s.config.isLoggingEnabled {
+		// util.LogTask("successfully deleted from S3: "+key, "S3Service.DeleteObject()", processID)
 	}
 
 	return nil

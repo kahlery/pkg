@@ -139,10 +139,10 @@ func getCallerInfo() (file string, line int) {
 	return file, line
 }
 
-func commonAttrs(location, processID string) []slog.Attr {
+func commonAttrs(location, threadID string) []slog.Attr {
 	fields := []slog.Attr{
-		slog.String("location", location),
-		slog.String("process_id", processID),
+		slog.String("caller", location),
+		slog.String("thread_id", threadID),
 	}
 	return fields
 }
@@ -156,7 +156,7 @@ func attrsToArgs(attrs []slog.Attr) []any {
 }
 
 // --------------------------------------------------------------------
-func LogError(ctx context.Context, msg, location, processID string) {
+func LogError(ctx context.Context, msg, location, threadID string) {
 	if logger == nil {
 		Initialize()
 	}
@@ -164,33 +164,33 @@ func LogError(ctx context.Context, msg, location, processID string) {
 	logger.With(
 		slog.String("file", file),
 		slog.Int("line", line),
-	).ErrorContext(ctx, msg, attrsToArgs(commonAttrs(location, processID))...)
+	).ErrorContext(ctx, msg, attrsToArgs(commonAttrs(location, threadID))...)
 }
 
-func LogSuccess(ctx context.Context, msg, location, processID string) {
+func LogSuccess(ctx context.Context, msg, location, threadID string) {
 	if logger == nil {
 		Initialize()
 	}
-	logger.InfoContext(ctx, msg, attrsToArgs(commonAttrs(location, processID))...)
+	logger.InfoContext(ctx, msg, attrsToArgs(commonAttrs(location, threadID))...)
 }
 
-func LogWarn(ctx context.Context, msg, location, processID string) {
+func LogWarn(ctx context.Context, msg, location, threadID string) {
 	if logger == nil {
 		Initialize()
 	}
-	logger.WarnContext(ctx, msg, attrsToArgs(commonAttrs(location, processID))...)
+	logger.WarnContext(ctx, msg, attrsToArgs(commonAttrs(location, threadID))...)
 }
 
-func LogTask(ctx context.Context, msg, location, processID string) {
+func LogTask(ctx context.Context, msg, location, threadID string) {
 	if logger == nil {
 		Initialize()
 	}
-	logger.DebugContext(ctx, msg, attrsToArgs(commonAttrs(location, processID))...)
+	logger.DebugContext(ctx, msg, attrsToArgs(commonAttrs(location, threadID))...)
 }
 
-func LogInfo(ctx context.Context, msg, location, processID string) {
+func LogInfo(ctx context.Context, msg, location, threadID string) {
 	if logger == nil {
 		Initialize()
 	}
-	logger.InfoContext(ctx, msg, attrsToArgs(commonAttrs(location, processID))...)
+	logger.InfoContext(ctx, msg, attrsToArgs(commonAttrs(location, threadID))...)
 }
