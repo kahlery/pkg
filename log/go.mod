@@ -1,4 +1,4 @@
-module github.com/kahlery/pkg/go/log
+module github.com/kahlery/pkg/log
 
 go 1.22.5
 

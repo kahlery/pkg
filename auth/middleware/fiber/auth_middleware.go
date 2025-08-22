@@ -2,7 +2,7 @@ package fiber
 
 import (
 	// Package specific
-	"github.com/kahlery/pkg/go/auth/token"
+	"github.com/kahlery/pkg/auth/token"
 
 	// Third
 	"github.com/gofiber/fiber/v2"

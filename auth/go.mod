@@ -1,4 +1,4 @@
-module github.com/kahlery/pkg/go/auth
+module github.com/kahlery/pkg/auth
 
 go 1.23.0
 
@@ -7,7 +7,7 @@ toolchain go1.23.8
 require (
 	github.com/gofiber/fiber/v2 v2.52.6
 	github.com/golang-jwt/jwt/v4 v4.5.2
-	github.com/kahlery/pkg/go/json v0.0.0-20250627173903-01fe221e3f1f
+	github.com/kahlery/pkg/json v0.0.0-20250627173903-01fe221e3f1f
 	golang.org/x/crypto v0.38.0
 )
 

@@ -6,8 +6,8 @@ github.com/golang-jwt/jwt/v4 v4.5.2 h1:YtQM7lnr8iZ+j5q71MGKkNw9Mn7AjHM68uc9g5fXe
 github.com/golang-jwt/jwt/v4 v4.5.2/go.mod h1:m21LjoU+eqJr34lmDMbreY2eSTRJ1cv77w39/MY0Ch0=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
 github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
-github.com/kahlery/pkg/go/json v0.0.0-20250627173903-01fe221e3f1f h1:4VGMPoRPmzrufsdkGQ9vWtJ5GzyV5MWLVrzTOp9GSpQ=
-github.com/kahlery/pkg/go/json v0.0.0-20250627173903-01fe221e3f1f/go.mod h1:GPeekgtaZl8AmE3+iOFSG4zYqqqAK/8JgcaL3qJf3hw=
+github.com/kahlery/pkg/json v0.0.0-20250627173903-01fe221e3f1f h1:4VGMPoRPmzrufsdkGQ9vWtJ5GzyV5MWLVrzTOp9GSpQ=
+github.com/kahlery/pkg/json v0.0.0-20250627173903-01fe221e3f1f/go.mod h1:GPeekgtaZl8AmE3+iOFSG4zYqqqAK/8JgcaL3qJf3hw=
 github.com/klauspost/compress v1.18.0 h1:c/Cqfb0r+Yi+JtIEq73FWXVkRonBlf0CRNYc8Zttxdo=
 github.com/klauspost/compress v1.18.0/go.mod h1:2Pp+KzxcywXVXMr50+X0Q/Lsb43OQHYWRCY2AiWywWQ=
 github.com/mattn/go-colorable v0.1.14 h1:9A9LHSqF/7dyVVX6g0U9cwm9pG3kP9gSzcuIPHPsaIE=

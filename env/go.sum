@@ -1,7 +1,7 @@
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/kahlery/pkg/go/log v0.0.0-20250519125109-96b86b0b31ef h1:MaOZSIywUHSw9f8tz24Xg3Q83a0N4CNwnDP0gDPG9Eg=
-github.com/kahlery/pkg/go/log v0.0.0-20250519125109-96b86b0b31ef/go.mod h1:Ftk23r5NBczTe3EhJCeUbhjY9WUpiO6tiuhVit/UB6Y=
+github.com/kahlery/pkg/log v0.0.0-20250519125109-96b86b0b31ef h1:MaOZSIywUHSw9f8tz24Xg3Q83a0N4CNwnDP0gDPG9Eg=
+github.com/kahlery/pkg/log v0.0.0-20250519125109-96b86b0b31ef/go.mod h1:Ftk23r5NBczTe3EhJCeUbhjY9WUpiO6tiuhVit/UB6Y=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/stretchr/testify v1.8.1 h1:w7B6lhMri9wdJUVmEZPGGhZzrYTPvgJArz7wNPgYKsk=

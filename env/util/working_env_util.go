@@ -5,7 +5,7 @@ import (
 	"os"
 
 	// Package specific
-	"github.com/kahlery/pkg/go/log/util"
+	"github.com/kahlery/pkg/log/util"
 )
 
 func LogWorkingEnv() {
