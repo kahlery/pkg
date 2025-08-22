@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/kahlery/pkg/go/auth/token"
+	"github.com/kahlery/pkg/go/auth/util"
 	"github.com/kahlery/pkg/go/json/util/std"
 )
 
@@ -28,7 +28,7 @@ func AuthMiddleware(next http.Handler) http.Handler {
 		tokenStr := strings.TrimPrefix(authHeader, "Bearer ")
 
 		// 3. Check if the token is verified.
-		_, err := token.VerifyToken(tokenStr)
+		_, err := util.VerifyToken(tokenStr)
 		if err != nil {
 			std.WriteJSON(w, http.StatusUnauthorized, map[string]string{
 				"error":   "Invalid token",
